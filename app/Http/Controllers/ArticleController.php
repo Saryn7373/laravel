@@ -12,7 +12,8 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        //
+        $articles = Article::latest() -> paginate(5);
+        return view("article.article", ['articles' => $articles]);
     }
 
     /**
@@ -20,7 +21,7 @@ class ArticleController extends Controller
      */
     public function create()
     {
-        //
+        return view('article.create');
     }
 
     /**
@@ -28,23 +29,45 @@ class ArticleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'date' => 'required | date',
+            'title' => 'required | min:5',
+            'text' => 'max:100'
+        ]);
+        $article = new Article();
+        $article->title = $request->title;
+        $article->text = $request->text;
+        $article->date_public = $request->date;
+        $article->users_id = 1;
+        $article->save();
+        return redirect() -> route('article.index');
     }
 
     /**
      * Display the specified resource.
-     */
+     */ 
     public function show(Article $article)
     {
-        //
+        return view('article.show', ['article'=> $article]);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Article $article)
+    public function edit(Article $article, Request $request)
     {
-        //
+        $request->validate([
+            'date' => 'required | date',
+            'title' => 'required | min:5',
+            'text' => 'max:100'
+        ]);
+        $article->title = $request->title;
+        $article->text = $request->text;
+        $article->date_public = $request->date;
+        $article->users_id = 1;
+        $article->save();
+        return redirect()->route('article.show', 
+        ['article'=>$article->id])->with('message','Update successful');
     }
 
     /**

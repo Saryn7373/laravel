@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
@@ -40,3 +41,5 @@ Route::get('/contact', function () {
 
 Route::get('/full_img/{img}', [MainController::class, 'show']);
 
+//Article
+Route::resource('/article', ArticleController::class );

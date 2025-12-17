@@ -1,4 +1,4 @@
-@extends('layout');
+@extends('layout')
 
 @section('content')
     <div class="card" style="width: 18rem;">
