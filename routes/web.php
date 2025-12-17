@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\MainController;
+use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +16,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+//Auth
+Route::get('auth/signin', [AuthController::class, 'signin']);
+Route::post('auth/register', [AuthController::class, 'register']);
+
+
+//Main
 Route::get('/', [MainController::class, 'index']);
 
 Route::get('/about', function () {
@@ -31,3 +39,4 @@ Route::get('/contact', function () {
 });
 
 Route::get('/full_img/{img}', [MainController::class, 'show']);
+
