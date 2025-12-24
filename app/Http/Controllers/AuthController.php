@@ -40,7 +40,7 @@ class AuthController extends Controller
             'password'=>'required|min:6'
         ]);
 
-        if(Auth::attempt($credentials)){
+        if(Auth::attempt($credentials, $request->remember)){
             $request->session()->regenerate();
             return redirect()->intended('/');
         }
