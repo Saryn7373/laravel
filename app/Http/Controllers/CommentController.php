@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreCommentRequest;
 use App\Http\Requests\UpdateCommentRequest;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Mail;
 use App\Models\Comment;
+use App\Models\Article;
+use App\Mail\CommentMail;
 use Illuminate\Http\Request;
 class CommentController extends Controller
 {
@@ -34,12 +37,13 @@ class CommentController extends Controller
         $request->validate([
             "text" => "min:10 | required"
         ]);
-
+        $article = Article::FindOrFail($request->article_id);
         $comment = new Comment();
         $comment->text = $request->text;
         $comment->article_id = $request->article_id;
         $comment->user_id = auth()->id();
-        $comment->save();
+        if($comment->save())
+            Mail::to(env('MAIL_USERNAME'))->send(new CommentMail($comment, $article));
         return redirect()->route('article.show', $request->article_id)->with('message', "Comment add succesful");
     }
 
