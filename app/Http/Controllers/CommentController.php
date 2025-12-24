@@ -17,8 +17,8 @@ class CommentController extends Controller
      */
     public function index()
     {
-        $comments = Comment::latest() -> paginate(5);
-        return view("comment.comments", ['comments' => $comments]);
+        $comments = Comment::latest() -> paginate(10);
+        return view("comments.index", ['comments' => $comments]);
     }
 
     /**
@@ -44,7 +44,7 @@ class CommentController extends Controller
         $comment->user_id = auth()->id();
         if($comment->save())
             Mail::to(env('MAIL_USERNAME'))->send(new CommentMail($comment, $article));
-        return redirect()->route('article.show', $request->article_id)->with('message', "Comment add succesful");
+        return redirect()->route('article.show', $request->article_id)->with('message', "Comment on moderation");
     }
 
     /**
@@ -79,5 +79,17 @@ class CommentController extends Controller
     {
         Gate::authorize('comment', $comment);
         return 0;       
+    }
+
+    public function accept(Comment $comment){
+        $comment->accepted = true;
+        $comment->save();
+        return redirect()->route('comments.index');
+    }
+
+    public function reject(Comment $comment){
+        $comment->accepted = false;
+        $comment->save();
+        return redirect()->route('comments.index');
     }
 }

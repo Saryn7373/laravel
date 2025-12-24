@@ -49,9 +49,12 @@ Route::get('/full_img/{img}', [MainController::class, 'show']);
 Route::resource('/article', ArticleController::class );
 
 //Comments
-Route::controller(CommentController::class)->prefix('comment')->group(function(){
+Route::controller(CommentController::class)->prefix('comments')->group(function(){
+    Route::get('/', 'index')->name('comments.index');
     Route::post('/', 'store');
     Route::get('/edit/{comment}', 'edit');
     Route::post('/update/{comment}', 'update');
     Route::get('/delete/{comment}', 'delete');
+    Route::get('/accept/{comment}', 'accept');
+    Route::get('/reject/{comment}', 'reject');
 });

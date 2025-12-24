@@ -26,10 +26,10 @@
                     </td>
                     <td>{{$comment->text}}</td>
                     <td>
-                        @if(!$comment->accept)
-                            <a href="/comment/accept/{{$comment->id}}" class="btn btn-primary">Accept</a>
+                        @if(!$comment->accepted)
+                            <a href="/comments/accept/{{$comment->id}}" class="btn btn-primary">Accept</a>
                         @else
-                            <a href="/comment/reject/{{$comment->id}}" class="btn btn-warning">Reject</a>
+                            <a href="/comments/reject/{{$comment->id}}" class="btn btn-warning">Reject</a>
                         @endif
                     </td>
                 </tr>
