@@ -56,15 +56,10 @@
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                                     aria-expanded="false">
-                                    New comments <span>{{auth()->user()->UnreadNotifications->count()}}</span>
+                                    
                                 </a>
-                                <ul class="dropdown-menu">
-                                    @foreach(auth()->user()->unreadNotifications as $notify)
-                                        <li> For article:<a class="dropdown-item"
-                                                href="{{route('article.show', ['article' => $notify->data['article_id'], 'notify' => $notify->id])}}">{{$notify->data['article']}}</a>
-                                        </li>
-                                    @endforeach
-                                </ul>
+                                <!-- <ul class="dropdown-menu">
+                                </ul> -->
                             </li>
                         @endauth
                     </ul>

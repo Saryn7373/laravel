@@ -38,7 +38,7 @@ class ArticleController extends Controller
         $article->title = $request->title;
         $article->text = $request->text;
         $article->date_public = $request->date;
-        $article->users_id = 1;
+        $article->users_id = auth() -> id();
         $article->save();
         return redirect() -> route('article.index');
     }
@@ -56,6 +56,14 @@ class ArticleController extends Controller
      */
     public function edit(Article $article, Request $request)
     {
+        return view('article.edit', ['article' => $article]);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, Article $article)
+    {
         $request->validate([
             'date' => 'required | date',
             'title' => 'required | min:5',
@@ -68,14 +76,6 @@ class ArticleController extends Controller
         $article->save();
         return redirect()->route('article.show', 
         ['article'=>$article->id])->with('message','Update successful');
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Article $article)
-    {
-        //
     }
 
     /**
