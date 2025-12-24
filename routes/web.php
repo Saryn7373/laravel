@@ -3,6 +3,7 @@
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CommentController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -46,3 +47,11 @@ Route::get('/full_img/{img}', [MainController::class, 'show']);
 
 //Article
 Route::resource('/article', ArticleController::class );
+
+//Comments
+Route::controller(CommentController::class)->prefix('comment')->group(function(){
+    Route::post('/', 'store');
+    Route::get('/edit/{comment}', 'edit');
+    Route::post('/update/{comment}', 'update');
+    Route::get('/delete/{comment}', 'delete');
+});

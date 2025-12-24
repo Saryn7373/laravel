@@ -30,9 +30,11 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        @can('create')
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="/article/create">Create Article</a>
                         </li>
+                        @endcan
                         <li class="nav-item">
                             <a class="nav-link @active('article')" aria-current="page" href="/article">Article</a>
                         </li>

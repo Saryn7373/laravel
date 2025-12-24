@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreCommentRequest;
 use App\Http\Requests\UpdateCommentRequest;
+use Illuminate\Support\Facades\Gate;
 use App\Models\Comment;
-use Request;
-
+use Illuminate\Http\Request;
 class CommentController extends Controller
 {
     /**
@@ -31,7 +31,16 @@ class CommentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            "text" => "min:10 | required"
+        ]);
+
+        $comment = new Comment();
+        $comment->text = $request->text;
+        $comment->article_id = $request->article_id;
+        $comment->user_id = auth()->id();
+        $comment->save();
+        return redirect()->route('article.show', $request->article_id)->with('message', "Comment add succesful");
     }
 
     /**
@@ -47,7 +56,7 @@ class CommentController extends Controller
      */
     public function edit(Comment $comment)
     {
-        //
+        Gate::authorize('comment', $comment);
     }
 
     /**
@@ -55,7 +64,8 @@ class CommentController extends Controller
      */
     public function update(Request $request, Comment $comment)
     {
-        //
+        Gate::authorize('comment', $comment);
+        return 0;
     }
 
     /**
@@ -63,6 +73,7 @@ class CommentController extends Controller
      */
     public function destroy(Comment $comment)
     {
-        //
+        Gate::authorize('comment', $comment);
+        return 0;       
     }
 }
