@@ -34,7 +34,6 @@ class NewArticleEvent implements ShouldBroadcast
             new Channel('test'),
         ];
     }
-
     public function broadcastWith(): array
     {
         return [

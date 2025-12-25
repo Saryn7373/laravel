@@ -8,7 +8,7 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Mail;
-use App\Mail\Commentmail;
+use App\Mail\CommentMail;
 use App\Models\Article;
 use App\Models\Comment;
 
@@ -32,6 +32,6 @@ class VeryLongJob implements ShouldQueue
      */
     public function handle(): void
     {
-        Mail::to(env('MAIL_USERNAME'))->send(new CommentMail($this->comment, $this->article));
+        Mail::to(env('MAIL_USERNAME'))->send(new CommentMail($this->comment, $this->article, $this->author));
     }
 }

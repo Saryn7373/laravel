@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
     <title>Laravel</title>
 
     <!-- Fonts -->
@@ -41,16 +41,6 @@
                         <li class="nav-item">
                             <a class="nav-link @active('article')" aria-current="page" href="/article">Article</a>
                         </li>
-                        <!-- @can('create')
-                        <li class="nav-item">
-                            <a class="nav-link @active('article/create')" aria-current="page"
-                                href="/article/create">Create Article</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link @active('comment')" aria-current="page" href="/comment">Comment
-                                moderation</a>
-                        </li>
-                        @endcan -->
                         <li class="nav-item">
                             <a class="nav-link @active('about')" aria-current="page" href="/about">About</a>
                         </li>
@@ -82,7 +72,10 @@
         </nav>
     </header>
     <main>
-        <div class="container">
+        <div class="container mt-5">
+            <div id="app">
+
+            </div>
             @yield('content')
         </div>
         
